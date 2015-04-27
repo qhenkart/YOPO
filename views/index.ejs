@@ -1,0 +1,36 @@
+<script id='layout' type='text/x-handlebars-template'>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">YOPO</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Sign In<span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+
+      </ul>
+    </div>
+  </nav>
+  <div id='container'></div>
+</script>
+
+
+<script>
+  $(function(){
+    new Yopo();
+  });
+
+  window.Templates = {};
+  $('[type="text/x-handlebars-template"]').each(function(index, div){
+    Templates[div.id] = Handlebars.compile(div.innerHTML);
+  });
+</script>
+
+<script src='/client/app.js'></script>
+<script src='/client/router.js'></script>
+<!--  <ul>
+        <li><a href='#' class='index'>All Links</a></li>
+        <li><a href='#' class='create'>Shorten</a></li>
+        <li><a href='/logout' class='logout'>Log out</a></li>
+      </ul> -->

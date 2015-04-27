@@ -1,0 +1,10 @@
+node_modules
+bower_components
+*.sqlite
+*.DS_Store
+
+# Floobits
+.floo
+.floobit
+.floo
+.flooignore
