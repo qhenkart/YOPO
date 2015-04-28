@@ -4,14 +4,19 @@ Yopo.Router = Backbone.Router.extend({
   },
 
   routes: {
-    '':       'index',
-    'create': 'create'
+    '': 'index',
+    'getpartner': 'getpartner',
+    'editprofile': 'editprofile'
+  },
+
+  getpartner: function(){
+    this.swapView(new Yopo.getPartnerView());
+  },
+
+  swapView: function(view){
+    this.$el.html(view.render().el);
   }
   // ,
-
-  // swapView: function(view){
-  //   this.$el.html(view.render().el);
-  // },
 
   // index: function(){
   //   // var links = new Shortly.Links();
@@ -22,4 +27,6 @@ Yopo.Router = Backbone.Router.extend({
   // create: function(){
   //   // this.swapView(new Shortly.createLinkView());
   // }
+
+
 });

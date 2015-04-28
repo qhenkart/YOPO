@@ -1,5 +1,27 @@
-<h2>Login</h2>
-<a href="/auth/github">Login with GitHub</a>
+
+
+<h2>Hello <%- data.name %> You must be a first time User!</h2>
+<h3>We just need a bit more information </h3>
+<!-- <a href="/auth/github">Sign-up with GitHub</a>
 <p>
   <a href="/signup">Create an Account &rarr;</a>
+<p> -->
+
+<form action="/signup" method="post">
+    <div>
+      <label for="organization"></label>
+      <input id="organization" type="text" name="organization" placeholder="Organization">
+    </div>
+    <div>
+      <label for="team"></label>
+      <input id="team" type="team" name="team" placeholder="TeamName e.g. HR26">
+    </div>
+      <label for="hidden"></label>
+      <input id="hidden" type="hidden" name="name" value=<%-data.login%> />
+    <div>
+      <input type="submit" value="Sign up">
+    </div>
+</form>
+<p>
+  <a href="/login">Login to your account &rarr;</a>
 <p>

@@ -6,8 +6,8 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Sign In<span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
+        <li><a href="#" class="editprofile">Edit Profile</a></li>
+        <li><a href="#" class="getpartner">Get Partner</a></li>
 
       </ul>
     </div>
@@ -15,6 +15,15 @@
   <div id='container'></div>
 </script>
 
+
+<script id='getPartner' type='text/x-handlebars-template'>
+  <form>
+      <input class='text' type='text' name='url'>
+      <input type='submit' value='Shorten'>
+  </form>
+  <img class='spinner' src='/spiffygif_46x46.gif'>
+  <div class='message'></div>
+</script>
 
 <script>
   $(function(){
@@ -28,6 +37,7 @@
 </script>
 
 <script src='/client/app.js'></script>
+<script src='/client/getPartnerView.js'></script>
 <script src='/client/router.js'></script>
 <!--  <ul>
         <li><a href='#' class='index'>All Links</a></li>

@@ -2,6 +2,8 @@ var express = require('express');
 var partials = require('express-partials');
 var passport = require('passport');
 var util = require('util');
+var fs = require('fs');
+
 
 var utils = require('./server/utils.js')
 var GitHubStrategy = require('passport-github').Strategy;
@@ -10,16 +12,35 @@ var utils = require('./server/utils.js');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
+var db = require('./server/userModel.js');
+
 // var mongoose = require('mongoose')
 
 
 var app = express();
+
+app.use(bodyParser.json());
+// Parse forms (signup/login)
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //====
 var GITHUB_CLIENT_ID = "d5eae655b197b1902c35"
 var GITHUB_CLIENT_SECRET = "bb195fc5b2777a5bd78429ab30e9210abca74997";
 
+//===personal database set up
+var storage;
+fs.readFile('./server/storage/storage', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err, "error on intialize");
+  }
+  if(data.length){
+    storage = JSON.parse(data);
+  }else{
+    storage = {users:{}};
 
-
+  }
+});
+//==============
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -90,6 +111,10 @@ app.get('/', utils.ensureAuthenticated,function(req, res) {
   res.render('index');
 });
 
+app.get('/signup', function(req, res){
+  res.render('signup');
+});
+
 app.get('/login',function(req, res) {
   res.render('login');
 });
@@ -100,6 +125,36 @@ app.get('/logout', function(req, res){
   });
 });
 
+
+app.post('/signup', function(req, res){
+  var organization = req.body.organization;
+  var team = req.body.team;
+  console.log(req.body)
+  organization.replace(/ |-|_/g, "").toLowerCase()
+  team.replace(/ |-|_/g, "").toLowerCase();
+  console.log(storage)
+  storage.users[req.body.name].organization = organization;
+  storage.users[req.body.name].team = team;
+
+  if(storage[organization] !== undefined && storage[organization][team] === undefined){
+    storage[organization] = [storage[req.body.name].name]
+  }else if(storage[organization] === undefined){
+    storage[organization] = {};
+    storage[organization][team] = [storage.users[req.body.name].name]
+  }else if(storage[organization][team]){
+    storage[organization][team].push(storage.users[req.body.name].name)
+  }
+  utils.addData(req,res,storage,function(){
+
+    res.redirect('/auth/github');
+  });
+
+
+
+
+  // res.redirect('/auth/github')
+
+});
 
 //=======Github Auth
 
@@ -123,8 +178,10 @@ app.get('/auth/github',
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log(req)
-    res.redirect('/');
+    utils.checkData(req, res, storage, function(){
+      res.redirect('/');
+    })
+    // console.log(req.user.login)
   });
 //========
 

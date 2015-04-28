@@ -1,9 +1,11 @@
-var database = {'Quest': [], 'Yuriy': [], 'Sunshine': [], 'Kyle': []}
+// var database = {'Quest': [], 'Yuriy': [], 'Sunshine': [], 'Kyle': []}
 window.Yopo = Backbone.View.extend({
   template: Templates['layout'],
 
   events: {
-    // 'click li a.index': console.log("wahoo")
+     // 'click li a.getPartner': console.log("wahoo")
+     'click li a.editprofile':  'renderEditProfile',
+     'click li a.getpartner': 'renderGetPartner'
   },
 
   initialize: function(){
@@ -18,17 +20,18 @@ window.Yopo = Backbone.View.extend({
   render: function(){
     this.$el.html( this.template() );
     return this;
+  },
+
+  // render: function(e){
+  //   e && e.preventDefault();
+  //   this.router.navigate('/', { trigger: true });
+  // },
+
+  renderGetPartner: function(e){
+    e && e.preventDefault();
+    this.router.navigate('/getpartner', { trigger: true });
   }
-  // ,
-
-  // updateNav: function(routeName){
-  //   this.$el.find('.navigation li a')
-  //     .removeClass('selected')
-  //     .filter('.' + routeName)
-  //     .addClass('selected');
-  // }
-
-})
+});
   
 
 
