@@ -103,15 +103,15 @@ app.use(partials());
 
 //===== servers up backbone framework
 app.use(express.static(__dirname + '/public'));
-
+console.log(__dirname)
 
 //default page
 app.get('/', utils.ensureAuthenticated,function(req, res) {
-  res.render('index');
+  res.render('index', {data: JSON.stringify(storage.users[req.user.username])});
 });
 
 app.get('/signup', function(req, res){
-  res.render('signup');
+  // res.render('signup');
 });
 
 app.get('/login',function(req, res) {

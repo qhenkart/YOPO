@@ -1,3 +1,4 @@
+<script></script> 
 <script id='layout' type='text/x-handlebars-template'>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -5,25 +6,38 @@
         <a class="navbar-brand" href="#">YOPO</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Sign In<span class="sr-only">(current)</span></a></li>
-        <li><a href="#" class="editprofile">Edit Profile</a></li>
         <li><a href="#" class="getpartner">Get Partner</a></li>
-
+        <li><a href="#" class="editprofile">Edit Profile</a></li>
       </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">About</a></li>
+        <li><a href="/logout">Logout</a></li>
     </div>
   </nav>
-  <div id='container'></div>
+  <div class='container'>
+    <div class="row">
+      <div class="col-md-6 col-centered" id="container">
+      </div>
+    </div>
+  </div>
+  
 </script>
 
-
 <script id='getPartner' type='text/x-handlebars-template'>
+  <div class="jumbotron">
+    <h1>Hello, <%-  %>!</h1>
+    <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
+    <p>...</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+  </div>
    <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
 </script>
 
-
 <script>
   $(function(){
+    debugger;
     Yopo.init();
+    Yopo.userInfo = <%-data %>
   });
 
   window.Templates = {};

@@ -5,6 +5,9 @@ var Yopo = {
 
   init: function(){
     console.log('running');
+    // Yopo.userInfo[data]
+    debugger;
+    // console.log(data)
     var el = $("<div></div>");
     $('body').append(Yopo.render(el, Yopo.template))
   },
