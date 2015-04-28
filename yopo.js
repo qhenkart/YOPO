@@ -22,7 +22,6 @@ var app = express();
 app.use(bodyParser.json());
 // Parse forms (signup/login)
 app.use(bodyParser.urlencoded({ extended: true }));
-
 //====
 var GITHUB_CLIENT_ID = "d5eae655b197b1902c35"
 var GITHUB_CLIENT_SECRET = "bb195fc5b2777a5bd78429ab30e9210abca74997";
@@ -129,8 +128,9 @@ app.get('/getPartner', function(req, res){
   var username = req.session.passport.user.username;
   console.log(username);
   var bucket = storage.users[username]
+  console.log("sending data", storage[bucket.organization][bucket.team])
 
-  res.send(200, storage[bucket.organization][bucket.team]);
+  res.status(200).send(storage[bucket.organization][bucket.team]);
 })
 
 

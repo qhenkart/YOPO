@@ -18,6 +18,7 @@ window.Yopo = Backbone.View.extend({
     Backbone.history.start({pushState: true})
   },
   render: function(){
+    debugger;
     this.$el.html( this.template() );
     return this;
   },

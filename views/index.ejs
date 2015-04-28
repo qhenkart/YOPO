@@ -17,13 +17,13 @@
 
 
 <script id='getPartner' type='text/x-handlebars-template'>
-   <button type="button" class="btn btn-default">Click Here To get your Partner</button>
+   <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
 </script>
 
 
 <script>
   $(function(){
-    new Yopo();
+    Yopo.init();
   });
 
   window.Templates = {};
@@ -32,10 +32,10 @@
   });
 </script>
 
-<script src='/client/app.js'></script>
+<script src='/client/app1.js'></script>
+<!-- <script src='/client/getPartnerView.js'></script>
 <script src='/client/teammates.js'></script>
-<script src='/client/getPartnerView.js'></script>
-<script src='/client/router.js'></script>
+<script src='/client/router.js'></script> -->
 <!--  <ul>
         <li><a href='#' class='index'>All Links</a></li>
         <li><a href='#' class='create'>Shorten</a></li>
