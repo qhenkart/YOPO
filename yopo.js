@@ -125,6 +125,14 @@ app.get('/logout', function(req, res){
   });
 });
 
+app.get('/getPartner', function(req, res){
+  var username = req.session.passport.user.username;
+  console.log(username);
+  var bucket = storage.users[username]
+
+  res.send(200, storage[bucket.organization][bucket.team]);
+})
+
 
 app.post('/signup', function(req, res){
   var organization = req.body.organization;

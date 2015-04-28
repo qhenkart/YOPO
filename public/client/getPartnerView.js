@@ -4,13 +4,36 @@ Yopo.getPartnerView = Backbone.View.extend({
   template: Templates['getPartner'],
 
   events: {
-    // 'submit': 'shortenUrl'
+     'click': 'getPartner'
   },
 
   render: function() {
     this.$el.html( this.template() );
-    debugger;
     return this;
+  },
+
+  getPartner: function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/getPartner",
+      type: "GET",
+      contentType: "application/json",
+      success: function(data){
+        debugger;
+        console.log(data);
+      }
+    })
+    // var teammates = new TeamMates();
+    //   teammates.fetch({
+    //     success:function(data_array){
+    //       console.log(data_array);
+          // data = data_array.models[0].attributes;
+          // data = JSON.stringify(data);
+          // console.log(data);
+          // var data = "<p>" + data + "</p>" ; 
+          // $('#data').append(data);
+      //   }
+      // });
   }
   // ,
 
