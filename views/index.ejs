@@ -1,4 +1,3 @@
-<script></script> 
 <script id='layout' type='text/x-handlebars-template'>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -10,34 +9,36 @@
         <li><a href="#" class="editprofile">Edit Profile</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">About</a></li>
+        <li><a data-toggle="modal" data-target="#myModal">About</a></li>
         <li><a href="/logout">Logout</a></li>
     </div>
   </nav>
   <div class='container'>
     <div class="row">
       <div class="col-md-6 col-centered" id="container">
+        <div class="jumbotron" id="container">
+          <h3>Welcome, <%-JSON.parse(data).name%>!</h3><br>
+          <p><a class="btn btn-danger btn-xs about" role="button" data-toggle="modal" data-target="#myModal">Learn more</a></p>
+        </div>
       </div>
     </div>
   </div>
   
 </script>
 
+
 <script id='getPartner' type='text/x-handlebars-template'>
-  <div class="jumbotron">
-    <h1>Hello, <%-  %>!</h1>
-    <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
-    <p>...</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-  </div>
-   <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
+  <h4>Welcome, <%-JSON.parse(data).name%>!</h4>
+  <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
 </script>
+
+
 
 <script>
   $(function(){
-    debugger;
     Yopo.init();
-    Yopo.userInfo = <%-data %>
+    Yopo.userInfo = <%-data%>
+    console.log(Yopo.userInfo)
   });
 
   window.Templates = {};
@@ -47,11 +48,27 @@
 </script>
 
 <script src='/client/app1.js'></script>
-<!-- <script src='/client/getPartnerView.js'></script>
-<script src='/client/teammates.js'></script>
-<script src='/client/router.js'></script> -->
-<!--  <ul>
-        <li><a href='#' class='index'>All Links</a></li>
-        <li><a href='#' class='create'>Shorten</a></li>
-        <li><a href='/logout' class='logout'>Log out</a></li>
-      </ul> -->
+
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">YOPO: You Only Pair Once</h4>
+      </div>
+      <div class="modal-body">
+        <p>Welcome to the YOPO App: A new <strong>PAIR</strong>adigm in Pair Programming</p>
+
+        <p>YOPO is set to solve the very real problem of matching during Pair Progamming exercises. This application allows people to pick their pairs, exclude certain people they don't want to pair with, or just choose anyone randomly. </p>
+
+        <p>The goal of this program is to make sure that no one gets left behind, that everyone has a partner, and that there is no inhibited productivity due to feelings of exclusion, being picked last, or feelings of alienation from the community.</p>
+
+        <p>Choose your top three choices, and if any of your choices match with theirs, then you will be automatically matched. Choose your two exclusions, and as long as there are other options in the pairing pool, you will not be matched. The rest is random!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

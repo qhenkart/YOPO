@@ -16,3 +16,45 @@
   text-align:center;
   margin-left:60px;
 }
+
+.jumbotron{
+  background-color: #3498db;
+  padding:150px;
+}
+
+.about{
+  margin: 0 auto;
+  display:block;
+  padding: 10px;
+  margin:20px;
+}
+.loginbutton{
+  margin-right:0 auto;
+  display:block;
+  float:none;
+  left:-50px;
+  padding: 20px;
+}
+
+h1, h2, h3, h4, h5{
+  text-align: center;
+}
+
+.modal-body p{
+  text-align: center;
+  font-size: 16px
+}
+
+.nav li:hover{
+  background: #95a5a6;
+  border-left: 5px solid #000;
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+}
+
+.nav li{
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+}
