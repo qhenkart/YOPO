@@ -2,10 +2,15 @@ var express = require('express');
 var partials = require('express-partials');
 var passport = require('passport');
 var util = require('util');
+
+var utils = require('./server/utils.js')
 var GitHubStrategy = require('passport-github').Strategy;
-var utils = require('./app/utils.js');
+
+var utils = require('./server/utils.js');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+
+// var mongoose = require('mongoose')
 
 
 var app = express();
@@ -118,6 +123,7 @@ app.get('/auth/github',
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
+    console.log(req)
     res.redirect('/');
   });
 //========
