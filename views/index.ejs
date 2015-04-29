@@ -29,15 +29,29 @@
 
 <script id='getPartner' type='text/x-handlebars-template'>
   <p>Let''s Get You Partnered Up, <%-JSON.parse(data).name%>!</p>
-  <div>
-    <label for="inclusions">Include up to two people you would prefer to pair with</label>
-    <input class="pairingForm" id="inclusions" type="inclusions" name="inclusions" placeholder="separate by comma">
+  <!-- <div>
+ //    <label for="inclusions"><em>Optional</em>: Include up to two people you would prefer to pair with</label>
+ //    <input class="pairingForm" id="inclusions" type="inclusions" name="inclusions" placeholder="separate by comma">
+ //  </div>
+ //  <div>
+ //    <label for="exclusions"><em>Optional</em>: Include up to two people you wish to avoid pairing with</label>
+ //    <input class="pairingForm" id="exclusions" type="text" name="exclusions" placeholder="separate by comma">
+ //  </div>
+ <br>-->
+  <div class="btn-group">
+    <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+      Add Preferred Partners <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" id="inclusions" role="menu">
+    </ul>
   </div>
-  <div>
-    <label for="exclusions">Include up to two people you wish to avoid pairing with</label>
-    <input class="pairingForm" id="exclusions" type="text" name="exclusions" placeholder="separate by comma">
+  <div class="btn-group">
+    <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+      Add Unpreferred Partners <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" id="exclusions" role="menu">
+    </ul>
   </div>
-  <br>
   <button type="button" class="btn btn-danger populatePartners">Click Here To get your Partner</button>
 </script>
 

@@ -25,29 +25,35 @@ var Yopo = {
       type: "GET",
       contentType: "application/json",
       success: function(data){
+        debugger;
         var dat = JSON.parse(data)
         var hash = {};
         _.each(dat.exclusions, function(x){
           hash[x] = x;
         });
-        if(dat.length > 2){
-          hash[Yopo.options.exclude[0]] = Yopo.options.exclude[0]
-          hash[Yopo.options.exclude[1]] = Yopo.options.exclude[1]
-        }
+        // if(dat.length > 2){
+        //   hash[Yopo.options.exclude[0]] = Yopo.options.exclude[0]
+        //   hash[Yopo.options.exclude[1]] = Yopo.options.exclude[1]
+        // }
 
         Yopo.teammates = _.filter(dat.team, function(x){
           if(hash[x] !== x){
             return x
           }
+        Yopo.populateMenus();
         }); 
-        Yopo.calculatePartner();
+        // Yopo.calculatePartner();
       },
       error: function(data){
         console.error("failed Get request", data)
       }
     });
   },
-
+  populateMenus: function(){
+    _.each(Yopo.teammates, function(person){
+      $('#inclusions, #exclusions').append('<li><a href="#" value='+person+'>'+person+'</a></li>');
+    });
+  },
   calculatePartner: function(match) {
     var calc = Math.floor(Math.random() * Yopo.teammates.length);
     var selection = Yopo.teammates[calc];
@@ -84,22 +90,23 @@ var Yopo = {
         console.error("failed Get request", data)
       }
     });
-
-    $.ajax({
-      url: "/getInclusions",
-      type: "GET",
-      contentType: "application/json",
-      success: function(data){
-        console.log(data)
-        if(data){
-
-        }
-      },
-      error: function(data){
-        console.error("failed Get request", data)
-      }
-    });
   }
+
+  //   $.ajax({
+  //     url: "/getInclusions",
+  //     type: "GET",
+  //     contentType: "application/json",
+  //     success: function(data){
+  //       console.log(data)
+  //       if(data){
+
+  //       }
+  //     },
+  //     error: function(data){
+  //       console.error("failed Get request", data)
+  //     }
+  //   });
+  // }
   
 }
 
@@ -109,7 +116,9 @@ $(document).ready(function(){
     e.preventDefault();
     var el = $('<div class="getPartner"></div>');
     var template = Templates['getPartner'];
-    Yopo.swapView(el, template)
+    Yopo.swapView(el, template);
+    Yopo.populatePartners();
+
   });
 
   $(document).on('click','.populatePartners',function(e){
