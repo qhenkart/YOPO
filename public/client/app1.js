@@ -40,9 +40,8 @@ var Yopo = {
           if(hash[x] !== x){
             return x
           }
-        Yopo.populateMenus();
         }); 
-        // Yopo.calculatePartner();
+        Yopo.populateMenus();
       },
       error: function(data){
         console.error("failed Get request", data)
@@ -53,6 +52,7 @@ var Yopo = {
     _.each(Yopo.teammates, function(person){
       $('#inclusions, #exclusions').append('<li><a href="#" value='+person+'>'+person+'</a></li>');
     });
+
   },
   calculatePartner: function(match) {
     var calc = Math.floor(Math.random() * Yopo.teammates.length);
@@ -123,10 +123,10 @@ $(document).ready(function(){
 
   $(document).on('click','.populatePartners',function(e){
     e.preventDefault();
-    Yopo.options.exclude = $("#exclusions").val().replace(/^ | $|<|>/g, "").replace(' ','-').toLowerCase().split(',').slice(0,2);
-    Yopo.options.include = $("#inclusions").val().replace(/^ | $|<|>/g, "").replace(' ', '-').toLowerCase().split(',').slice(0,2);
-    Yopo.checkPartnerChoices();
-    Yopo.populatePartners();
+    // Yopo.options.exclude = $("#exclusions").val().replace(/^ | $|<|>/g, "").replace(' ','-').toLowerCase().split(',').slice(0,2);
+    // Yopo.options.include = $("#inclusions").val().replace(/^ | $|<|>/g, "").replace(' ', '-').toLowerCase().split(',').slice(0,2);
+    // Yopo.checkPartnerChoices();
+    Yopo.calculatePartner();
   });
 });
 
