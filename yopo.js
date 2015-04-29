@@ -3,6 +3,7 @@ var partials = require('express-partials');
 var passport = require('passport');
 var util = require('util');
 var fs = require('fs');
+var _ = require('underscore');
 
 
 var utils = require('./server/utils.js')
@@ -107,7 +108,9 @@ console.log(__dirname)
 
 //default page
 app.get('/', utils.ensureAuthenticated,function(req, res) {
-  res.render('index', {data: JSON.stringify(storage.users[req.user.username])});
+  var username = req.session.passport.user.displayName;
+  username = username.replace(" ", "-");
+  res.render('index', {data: JSON.stringify(storage.users[username])});
 });
 
 app.get('/signup', function(req, res){
@@ -125,36 +128,76 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/getPartner', function(req, res){
-  var username = req.session.passport.user.username;
-  console.log(username);
+  var username = req.session.passport.user.displayName;
+  username = username.replace(" ", "-");
   var bucket = storage.users[username]
   console.log("sending data", storage[bucket.organization][bucket.team])
 
-  res.status(200).send(storage[bucket.organization][bucket.team]);
+  res.status(200).send(JSON.stringify({exclusions:bucket.exclusions,team:storage[bucket.organization][bucket.team]}));
 })
+
+app.post("/updateExclusions", function(req, res){
+  var username = req.session.passport.user.displayName;
+  username = username.replace(" ", "-");
+
+  var bucket = storage.users[username];
+  console.log(req.body.selection)
+  if(req.body.selection !== undefined){
+
+    bucket.exclusions.push(req.body.selection);
+    utils.addData(req,res,storage,function(){
+      console.log(req.body, "message recieved")
+      
+    })
+  }
+
+});
+
+app.post('/sendInclusions', function(req, res){
+  var username = req.session.passport.user.displayName;
+  username = username.replace(" ", "-");
+
+  var bucket = storage.users[username];
+  bucket.inclusions = req.body;
+});
+
+// app.get('/getInclusions', function(req, res){
+//   var username = req.session.passport.user.displayName;
+//   username = username.replace(" ", "-");
+
+//   var bucket = storage.users[username];
+//   var match=[];
+//   _.each(bucket.inclusions, function(person){
+    
+//     if(storage.users[person].inclusions.indexOf(username) !== 1){
+//       match.push(person);
+//     }
+//   });
+//   res.status(200).send(JSON.stringify(match[0]))
+// })
 
 
 app.post('/signup', function(req, res){
+  var username = req.session.passport.user.displayName;
+  username = username.replace(" ", "-");
   var organization = req.body.organization;
   var team = req.body.team;
-  console.log(req.body)
-  organization.replace(/ |-|_/g, "").toLowerCase()
-  team.replace(/ |-|_/g, "").toLowerCase();
-  console.log(storage)
-  storage.users[req.body.name].organization = organization;
-  storage.users[req.body.name].team = team;
+  organization = organization.replace(/ |-|_|<|>/g, "").toLowerCase()
+  team = team.replace(/ |-|_|<|>/g, "").toLowerCase();
+  storage.users[username].organization = organization;
+  storage.users[username].team = team;
 
   if(storage[organization] !== undefined && storage[organization][team] === undefined){
-    storage[organization] = [storage[req.body.name].name]
+    storage[organization] = [storage[username].name]
   }else if(storage[organization] === undefined){
     storage[organization] = {};
-    storage[organization][team] = [storage.users[req.body.name].name]
+    storage[organization][team] = [storage.users[username].name]
   }else if(storage[organization][team]){
-    storage[organization][team].push(storage.users[req.body.name].name)
+    storage[organization][team].push(storage.users[username].name)
   }
   utils.addData(req,res,storage,function(){
 
-    res.redirect('/auth/github');
+    res.redirect('/');
   });
 
 

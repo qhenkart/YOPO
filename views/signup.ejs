@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-xs-12">
-      <h2>Hello <%- data.name %> You must be a first time User!</h2>
+      <h2>Hello <%- data.name.replace("-", " ") %> You must be a first time User!</h2>
     </div>
   </div>
   <div class='row'>
@@ -23,8 +23,8 @@
           <label for="team"></label>
           <input id="team" type="team" name="team" placeholder="TeamName e.g. HR26">
         </div>
-          <label for="hidden"></label>
-          <input id="hidden" type="hidden" name="name" value=<%-data.login%> />
+          <!-- <label for="hidden"></label> -->
+          <!-- <input id="hidden" type="hidden" name="name" value=<%-data%> /> -->
         <div>
           <input style="margin-left:30px;" class="btn btn-danger btn-lg"type="submit" value="Sign up">
         </div>

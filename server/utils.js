@@ -39,14 +39,15 @@ exports.addData = function(req, res, storage, callback){
 }
 
 exports.checkData = function(req, res, storage, cb){
-  if(storage.users[req.user.username] !== undefined && storage.users[req.user.username].organization !== null){
+  var user = (req.user.displayName).replace(" ", "-");
+  if(storage.users[user] !== undefined && storage.users[user].login === req.user.username  && storage.users[user].organization !== null){
     cb()
   }else{
-    storage.users[req.user.username] = {login: req.user.username, name: req.user.displayName, organization: null, team: null};
+    storage.users[user] = {login: req.user.username, name: req.user.displayName, organization: null, team: null,exclusions: [req.user.displayName], inclusions:[]};
     exports.addData(req, res, storage, function(){
-      req.session.destroy(function(){
-        res.render('signup', {data: storage.users[req.user.username]});
-      });
+      res.render('signup', {data: storage.users[user]});
+      // req.session.destroy(function(){
+      // });
     })
   }
 }

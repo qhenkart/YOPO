@@ -15,7 +15,7 @@
   </nav>
   <div class='container'>
     <div class="row">
-      <div class="col-md-6 col-centered" id="container">
+      <div class="col-md-6 col-centered">
         <div class="jumbotron" id="container">
           <h3>Welcome, <%-JSON.parse(data).name%>!</h3><br>
           <p><a class="btn btn-danger btn-xs about" role="button" data-toggle="modal" data-target="#myModal">Learn more</a></p>
@@ -28,8 +28,17 @@
 
 
 <script id='getPartner' type='text/x-handlebars-template'>
-  <h4>Welcome, <%-JSON.parse(data).name%>!</h4>
-  <button type="button" class="btn btn-primary populatePartners">Click Here To get your Partner</button>
+  <p>Let''s Get You Partnered Up, <%-JSON.parse(data).name%>!</p>
+  <div>
+    <label for="inclusions">Include up to two people you would prefer to pair with</label>
+    <input class="pairingForm" id="inclusions" type="inclusions" name="inclusions" placeholder="separate by comma">
+  </div>
+  <div>
+    <label for="exclusions">Include up to two people you wish to avoid pairing with</label>
+    <input class="pairingForm" id="exclusions" type="text" name="exclusions" placeholder="separate by comma">
+  </div>
+  <br>
+  <button type="button" class="btn btn-danger populatePartners">Click Here To get your Partner</button>
 </script>
 
 
