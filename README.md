@@ -1,6 +1,6 @@
 # Pairing-Picker
 A simple program that automates partner pairing matches
-
+built with ejs, handlebars, express
 
 
 Project Name
