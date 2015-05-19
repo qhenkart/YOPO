@@ -34,18 +34,7 @@ var GITHUB_CLIENT_ID = "d5eae655b197b1902c35"
 var GITHUB_CLIENT_SECRET = "bb195fc5b2777a5bd78429ab30e9210abca74997";
 
 //===personal database set up
-var storage;
-fs.readFile('./server/storage/storage', 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err, "error on intialize");
-  }
-  if(data.length){
-    storage = JSON.parse(data);
-  }else{
-    storage = {users:{}};
 
-  }
-});
 //==============
 
 // Passport session setup.
@@ -115,10 +104,7 @@ console.log(__dirname)
 //default page
 app.get('/', utils.ensureAuthenticated,function(req, res) {
   var username = req.session.passport.user.displayName;
-  username = username.replace(" ", "-");
-
-  
-  res.render('index', {data: JSON.stringify(storage.users[username])});
+  res.render('index', {data: username});
 });
 
 app.get('/signup', function(req, res){
@@ -137,8 +123,6 @@ app.get('/logout', function(req, res){
 
 app.get('/getPartner', function(req, res){
   var username = req.session.passport.user.displayName;
-  username = username.replace(" ", "-");
-  var bucket = storage.users[username]
   console.log("sending data", storage[bucket.organization][bucket.team])
 
   res.status(200).send(JSON.stringify({exclusions:bucket.exclusions,team:storage[bucket.organization][bucket.team]}));
@@ -239,7 +223,8 @@ app.get('/auth/github/callback',
   function(req, res) {
     console.log("recieved")
     
-    utils.checkData(req, res, storage, function(){
+    utils.checkData(req, res, function(){
+      console.log('login verified')
       res.redirect('/');
     })
     // console.log(req.user.login)

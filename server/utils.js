@@ -30,39 +30,35 @@ exports.ensureAuthenticated = function(req, res, next) {
 
 // }
 
-
+//populates the database with a JSON file from the bookstrap page
 exports.addData = function(req, res, storage, callback){
-  
+  var counter = 0;
 fs.readFile('./server/storage/cohort', 'utf8', function (err, data) {
   if (err) {
     return console.log(err, "error on intialize");
   }else{
-    var cohort = JSON.stringify(data)
-    var cohort = JSON.parse(cohort)
-    console.log(cohort[0])
-    // _.each(data, function(user){
+    var cohort = JSON.parse(data)
+    console.log(cohort)
+    _.each(cohort, function(user){
+      var newUser = new User({
+        username: user.username, 
+        name: user.name,
+        email: user.email,
+        cohort: user.cohort,
+        exclusions: [user.username]
+      });
 
-    //   console.log(user)
-    //   // var newUser = new User({
-    //   //   username: user.username, 
-    //   //   name: user.name,
-    //   //   cohort: user.cohort,
-    //   //   exclusions: [user.username]
-    //   // });
-
-    //   // newUser.save(function(err, result){
-    //   //   if(err){
-    //   //     console.log(err, 'error!')
-    //   //   }else{
-    //   //     console.log(result, 'success!!')
-    //   //   }
-    //   // });
-    // })
-    // cohort = JSON.parse(data);
-    // cohort = data.filter(function(user){
-      // console.log(user.username)
-    // })
+      newUser.save(function(err, result){
+        if(err){
+          console.log(err, 'error!')
+        }else{
+          counter++;
+          console.log(result, 'success!!')
+        }
+      });
+    })
   }
+  console.log(counter, "database entries")
 });
 
 
@@ -75,30 +71,18 @@ fs.readFile('./server/storage/cohort', 'utf8', function (err, data) {
 
 }
 
-exports.checkData = function(req, res, storage, cb){
+exports.checkData = function(req, res, cb){
   var username = req.user.username
   var findUser = Q.nbind(User.findOne, User);
-  exports.addData()
+  // exports.addData()
 
   findUser({username: username})
     .then(function(user){
       if(!user) {
         console.log("User does not exist");
-        var newUser = new User({
-          username: req.user.username, 
-          name: req.user.displayName,
-          cohort: "20",
-          exclusions: [req.user.username]
-        });
-
-        newUser.save(function(err, result){
-          if(err){
-            console.log(err, 'error!')
-          }else{
-            console.log(result, 'success!!')
-          }
-        });
       }else{
+        console.log("user found", user)
+
         cb()
       }
     })
