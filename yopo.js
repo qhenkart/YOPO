@@ -102,9 +102,11 @@ app.use(express.static(__dirname + '/public'));
 console.log(__dirname)
 
 //default page
+//email  username  login
 app.get('/', utils.ensureAuthenticated,function(req, res) {
-  var username = req.session.passport.user.displayName;
-  res.render('index', {data: username});
+  var user = req.session.passport.user;
+  console.log(user, "woeijraewr")
+  res.render('index', {data: JSON.stringify(user)});
 });
 
 app.get('/signup', function(req, res){

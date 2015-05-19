@@ -17,7 +17,7 @@
     <div class="row">
       <div class="col-md-6 col-centered">
         <div class="jumbotron" id="container">
-          <h3>Welcome, <%-JSON.parse(data).name%>!</h3><br>
+          <h3>Welcome, <%-JSON.parse(data).displayName%>!</h3><br>
           <p><a class="btn btn-danger btn-xs about" role="button" data-toggle="modal" data-target="#myModal">Learn more</a></p>
         </div>
       </div>
@@ -28,7 +28,7 @@
 
 
 <script id='getPartner' type='text/x-handlebars-template'>
-  <p>Let''s Get You Partnered Up, <%-JSON.parse(data).name%>!</p>
+  <p>Let''s Get You Partnered Up, <%-JSON.parse(data).displayName%>!</p>
   <!-- <div>
  //    <label for="inclusions"><em>Optional</em>: Include up to two people you would prefer to pair with</label>
  //    <input class="pairingForm" id="inclusions" type="inclusions" name="inclusions" placeholder="separate by comma">
