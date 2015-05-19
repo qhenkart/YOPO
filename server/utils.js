@@ -1,4 +1,7 @@
 var fs = require('fs');
+var User = require('./userModel.js')
+var Q = require('q')
+var _ = require('underscore')
 
 
 
@@ -29,28 +32,89 @@ exports.ensureAuthenticated = function(req, res, next) {
 
 
 exports.addData = function(req, res, storage, callback){
-  fs.writeFile("./server/storage/storage", JSON.stringify(storage), function(err){
-    if(err){
-      return console.log(err, "error on adddata");
-    }
-    callback();
-  });
+  
+fs.readFile('./server/storage/cohort', 'utf8', function (err, data) {
+  if (err) {
+    return console.log(err, "error on intialize");
+  }else{
+    var cohort = JSON.stringify(data)
+    var cohort = JSON.parse(cohort)
+    console.log(cohort[0])
+    // _.each(data, function(user){
+
+    //   console.log(user)
+    //   // var newUser = new User({
+    //   //   username: user.username, 
+    //   //   name: user.name,
+    //   //   cohort: user.cohort,
+    //   //   exclusions: [user.username]
+    //   // });
+
+    //   // newUser.save(function(err, result){
+    //   //   if(err){
+    //   //     console.log(err, 'error!')
+    //   //   }else{
+    //   //     console.log(result, 'success!!')
+    //   //   }
+    //   // });
+    // })
+    // cohort = JSON.parse(data);
+    // cohort = data.filter(function(user){
+      // console.log(user.username)
+    // })
+  }
+});
+
+
+  // fs.writeFile("./server/storage/storage", JSON.stringify(storage), function(err){
+  //   if(err){
+  //     return console.log(err, "error on adddata");
+  //   }
+  //   callback();
+  // });
 
 }
 
 exports.checkData = function(req, res, storage, cb){
-  var user = (req.user.displayName).replace(" ", "-");
-  if(storage.users[user] !== undefined && storage.users[user].login === req.user.username  && storage.users[user].organization !== null){
-    cb()
-  }else{
-    storage.users[user] = {login: req.user.username, name: req.user.displayName, organization: null, team: null,exclusions: [req.user.displayName], inclusions:[]};
-    exports.addData(req, res, storage, function(){
-      res.render('signup', {data: storage.users[user]});
-      // req.session.destroy(function(){
-      // });
+  var username = req.user.username
+  var findUser = Q.nbind(User.findOne, User);
+  exports.addData()
+
+  findUser({username: username})
+    .then(function(user){
+      if(!user) {
+        console.log("User does not exist");
+        var newUser = new User({
+          username: req.user.username, 
+          name: req.user.displayName,
+          cohort: "20",
+          exclusions: [req.user.username]
+        });
+
+        newUser.save(function(err, result){
+          if(err){
+            console.log(err, 'error!')
+          }else{
+            console.log(result, 'success!!')
+          }
+        });
+      }else{
+        cb()
+      }
     })
-  }
 }
+//   var user = (req.user.displayName).replace(" ", "-");
+//   if(storage.users[user] !== undefined && storage.users[user].login === req.user.username  && storage.users[user].organization !== null){
+//     cb()
+//   }else{
+//     storage.users[user] = {login: req.user.username, name: req.user.displayName, organization: null, team: null,exclusions: [req.user.displayName], inclusions:[]};
+//     exports.addData(req, res, storage, function(){
+//       res.render('signup', {data: storage.users[user]});
+//       // req.session.destroy(function(){
+//       // });
+//     })
+//   }
+// }
 
 
 

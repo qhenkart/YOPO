@@ -1,25 +1,20 @@
-// var mysql = require('mysql');
-// var Sequelize = require("sequelize");
+var mongoose = require('mongoose');
+var Q = require('q')
 
 
-// var orm = new Sequelize("yopo", "root", "");
-
-// var User = orm.define('User', {
-//   username: Sequelize.STRING,
-//   name: Sequelize.STRING,
-//   organization: Sequelize.STRING,
-//   team: Sequelize.STRING
-// });
-
-// var Teammates = orm.define("Teammates", {
-//   username: Sequelize.STRING,
-// });
-
-// User.hasMany(Teammates);
-
-// User.sync();
-// Teammates.sync();
+var UserSchema = new mongoose.Schema({
+  name:  String,
+  username: String,
+  cohort: Number,
+  inclusions: [],
+  exclusions: []  
+});
 
 
-// exports.User = User;
-// exports.Teammates = Teammates;
+
+// var cohorts = new Schema({
+//   cohort: []
+// })
+
+
+module.exports = mongoose.model('users', UserSchema);

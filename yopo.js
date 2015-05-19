@@ -4,6 +4,9 @@ var passport = require('passport');
 var util = require('util');
 var fs = require('fs');
 var _ = require('underscore');
+var mongoose    = require('mongoose');
+var User = require('./server/userModel.js')
+
 
 
 var utils = require('./server/utils.js')
@@ -19,6 +22,9 @@ var db = require('./server/userModel.js');
 
 
 var app = express();
+
+mongoose.connect('mongodb://localhost/yopo'); // connect to mongo database named shortly
+
 
 app.use(bodyParser.json());
 // Parse forms (signup/login)
@@ -110,6 +116,8 @@ console.log(__dirname)
 app.get('/', utils.ensureAuthenticated,function(req, res) {
   var username = req.session.passport.user.displayName;
   username = username.replace(" ", "-");
+
+  
   res.render('index', {data: JSON.stringify(storage.users[username])});
 });
 
@@ -229,6 +237,8 @@ app.get('/auth/github',
 app.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
+    console.log("recieved")
+    
     utils.checkData(req, res, storage, function(){
       res.redirect('/');
     })
