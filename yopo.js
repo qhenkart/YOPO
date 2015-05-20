@@ -5,7 +5,7 @@ var util = require('util');
 var fs = require('fs');
 var _ = require('underscore');
 var mongoose    = require('mongoose');
-var User = require('./server/userModel.js')
+var User = require('./server/models/userModel.js')
 
 
 
@@ -15,8 +15,6 @@ var GitHubStrategy = require('passport-github').Strategy;
 var utils = require('./server/utils.js');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
-var db = require('./server/userModel.js');
 
 // var mongoose = require('mongoose')
 
@@ -102,10 +100,10 @@ app.use(express.static(__dirname + '/public'));
 console.log(__dirname)
 
 //default page
-//email  username  login
+//email login displayName
 app.get('/', utils.ensureAuthenticated,function(req, res) {
-  var user = req.session.passport.user;
-  console.log(user, "woeijraewr")
+  // var user = req.session.passport.user;
+  var user = req.user
   res.render('index', {data: JSON.stringify(user)});
 });
 
@@ -124,10 +122,10 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/getPartner', function(req, res){
-  var username = req.session.passport.user.displayName;
-  console.log("sending data", storage[bucket.organization][bucket.team])
-
-  res.status(200).send(JSON.stringify({exclusions:bucket.exclusions,team:storage[bucket.organization][bucket.team]}));
+  utils.checkCohort(req, res, function(cohort){
+    console.log(cohort, "returned from db")
+    res.status(200).send(JSON.stringify(cohort));
+  })
 })
 
 app.post("/updateExclusions", function(req, res){

@@ -25,22 +25,20 @@ var Yopo = {
       type: "GET",
       contentType: "application/json",
       success: function(data){
-        debugger;
         var dat = JSON.parse(data)
-        var hash = {};
-        _.each(dat.exclusions, function(x){
-          hash[x] = x;
-        });
-        // if(dat.length > 2){
-        //   hash[Yopo.options.exclude[0]] = Yopo.options.exclude[0]
-        //   hash[Yopo.options.exclude[1]] = Yopo.options.exclude[1]
-        // }
+        var exclusions = {};
+        debugger;
+        // _.each(dat.exclusions, function(user){
+        //   exclusions[x] = user.username;
+        // });
+       
 
-        Yopo.teammates = _.filter(dat.team, function(x){
-          if(hash[x] !== x){
-            return x
-          }
-        }); 
+        // Yopo.teammates = _.filter(dat, function(user){
+        //   if(exclusions[x] !== user.username){
+        //     return user
+        //   }
+        // }); 
+        Yopo.teammates = dat
         Yopo.populateMenus();
       },
       error: function(data){
@@ -50,7 +48,7 @@ var Yopo = {
   },
   populateMenus: function(){
     _.each(Yopo.teammates, function(person){
-      $('#inclusions, #exclusions').append('<li><a href="#" value='+person+'>'+person+'</a></li>');
+      $('#inclusions, #exclusions').append('<li><a href="#" value='+person.username+'>'+person.name+'</a></li>');
     });
 
   },

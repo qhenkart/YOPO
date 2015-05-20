@@ -1,5 +1,5 @@
 var fs = require('fs');
-var User = require('./userModel.js')
+var User = require('./models/userModel.js')
 var Q = require('q')
 var _ = require('underscore')
 
@@ -33,7 +33,7 @@ exports.ensureAuthenticated = function(req, res, next) {
 //populates the database with a JSON file from the bookstrap page
 exports.addData = function(req, res, storage, callback){
   var counter = 0;
-fs.readFile('./server/storage/cohort', 'utf8', function (err, data) {
+  fs.readFile('./server/storage/cohort', 'utf8', function (err, data) {
   if (err) {
     return console.log(err, "error on intialize");
   }else{
@@ -58,7 +58,6 @@ fs.readFile('./server/storage/cohort', 'utf8', function (err, data) {
       });
     })
   }
-  console.log(counter, "database entries")
 });
 
 
@@ -83,9 +82,36 @@ exports.checkData = function(req, res, cb){
       }else{
         console.log("user found", user)
 
-        cb()
+        cb(user)
       }
     })
+}
+
+exports.checkCohort = function(req, res, cb){
+  var username = req.user.username;
+  var findUser = Q.nbind(User.findOne, User);
+  var findCohort = Q.nbind(User.find, User);
+
+  findUser({username: username})
+    .then(function(user){
+      if(!user) {
+        console.log("User does not exist");
+      }else{
+        console.log("user found", user)
+        findCohort({cohort: user.cohort})
+          .then(function(cohort){
+            if(!cohort) {
+              console.log("Cohort does not exist");
+            }else{
+              console.log("Cohort found", cohort)
+
+              cb(cohort)
+            }
+          })
+      }
+    });
+ 
+ 
 }
 //   var user = (req.user.displayName).replace(" ", "-");
 //   if(storage.users[user] !== undefined && storage.users[user].login === req.user.username  && storage.users[user].organization !== null){
