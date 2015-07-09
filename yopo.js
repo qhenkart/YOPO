@@ -5,8 +5,9 @@ var util = require('util');
 var fs = require('fs');
 var _ = require('underscore');
 var mongoose    = require('mongoose');
-var User = require('./server/models/userModel.js')
+var MongoDBStore = require('connect-mongodb-session')(session);
 
+var User = require('./server/models/userModel.js')
 
 
 var utils = require('./server/utils.js')
@@ -15,8 +16,6 @@ var GitHubStrategy = require('passport-github').Strategy;
 var utils = require('./server/utils.js');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-
-// var mongoose = require('mongoose')
 
 
 var app = express();
@@ -31,17 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var GITHUB_CLIENT_ID = "d5eae655b197b1902c35"
 var GITHUB_CLIENT_SECRET = "bb195fc5b2777a5bd78429ab30e9210abca74997";
 
-//===personal database set up
 
-//==============
-
-// Passport session setup.
-//   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete GitHub profile is serialized
-//   and deserialized.
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -49,9 +38,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
-//==============
-//====
-
 
 
 // Use the GitHubStrategy within Passport.
