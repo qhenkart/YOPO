@@ -20,7 +20,7 @@ module.exports = function(passport) {
         if(!user) {
           console.log("user does not exist to deserialize");
         }else{
-          console.log("user found", user)
+          console.log("user found")
         }
         done(null, user);
       });

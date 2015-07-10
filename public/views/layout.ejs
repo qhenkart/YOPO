@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Pair Matching</title>
+
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+    
+    <link rel="stylesheet" href="../src/stylesheets/styles.css">
+
+    
+  </head>
+  <body class='pairImage'>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">YOPO</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#" class="getpartner">Get Partner</a></li>
+          <li><a href="#" class="editprofile">Edit Profile</a></li>
+        </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li><a data-toggle="modal" data-target="#myModal">About</a></li>
+          <li><a href="/logout">Logout</a></li>
+      </div>
+    </nav>
+    <div class='container'>
+      <div class="row">
+        <div class="col-md-6 col-centered">
+          <div class="jumbotron" id="container">
+            <section id="content"></section>  
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">YOPO: You Only Pair Once</h4>
+          </div>
+          <div class="modal-body">
+            <p>Welcome to the YOPO App: A new <strong>PAIR</strong>adigm in Pair Programming</p>
+
+            <p>YOPO is set to solve the very real problem of matching during Pair Progamming exercises. This application allows people to set preferences of people they want to pair or not to pair with, or just choose anyone randomly. </p>
+
+            <p>The goal of this program is to make sure that no one gets left behind, that everyone has a partner, and that there is no inhibited productivity due to feelings of exclusion, being picked last, or feelings of alienation from the community.</p>
+
+            <p>Choose your top two choices, and if any of your choices match with theirs, then you will be automatically matched. Choose your two exclusions, and as long as there are other options in the pairing pool, you will not be matched. For those who don't care, or prefer to partner with the most diverse selection of talent and personality, the app will match you with a totally random partner with the exception of those you've already paired with!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/jsx" src="../src/javascript/app.js"></script>   
+  </body>
+</html>

@@ -1,0 +1,59 @@
+/*@import 'bootstrap';*/
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+/* Yours styles here */
+
+#content {
+  padding-top: 70px;
+  min-height: 400px;
+  min-width:280px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.pairImage {
+  background: #7f8c8d url("../../images/pair.jpg") no-repeat fixed center;
+}
+
+/*#login {
+  opacity: 0.9;
+}*/
+#login h2,h4 {
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.jumbotron{
+  margin-top:10px;
+  background-color:#bdc3c7;
+  opacity: 0.9;
+}
+
+.nav li:hover{
+  background: #95a5a6;
+  border-left: 5px solid #000;
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+}
+
+.nav li{
+  -webkit-transition: all 0.1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+}
+
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
