@@ -16,6 +16,19 @@ var App = React.createClass({
       }.bind(this)
     });
   },
+  loadCohortMates: function(){
+    $.ajax({
+      url: '/getPartner',
+      dataType: 'json',
+      cache: false,
+      success: function(cohort){
+        this.setState({partners: cohort});
+      }.bind(this),
+      error: function(xhr, status, err){
+        console.error('/getUser', status, err.toString());
+      }.bind(this)
+    });
+  },
   handleNavigationSelection: function(stateName){
     var state = this.state;
     state.partner = false;
@@ -23,6 +36,7 @@ var App = React.createClass({
     state.home = false;
     state[stateName] = true;
     this.setState(state);
+    if(stateName === 'partner') this.loadCohortMates();
   },
   getInitialState: function(){
     return {user: '', partners: '', partner: false, profile: false, home: true}
@@ -72,6 +86,8 @@ var Modal = React.createClass({
     )
   }
 })
+
+
 
 
 // var routes = (

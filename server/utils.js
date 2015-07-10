@@ -37,7 +37,7 @@ exports.checkCohort = function(req, res, cb){
             }else{
               console.log("Cohort found", cohort)
 
-              cb({cohort: cohort, user: user})
+              cb(cohort)
             }
           })
       }

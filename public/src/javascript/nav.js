@@ -1,13 +1,14 @@
 var NavBar = React.createClass({
   clickHandler: function(stateName){
+    stateName = stateName.constructor === String ? stateName : 'home';
     this.props.handleClickEvent(stateName);
   },
   render: function(){
     return(
-      <nav className="navbar navbar-default navbar-fixed-top">
+      <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#" stateName="home" onClick={this.clickHandler}>YOPO</a>
+            <a className="navbar-brand" href="#" onClick={this.clickHandler}>YOPO</a>
           </div>
           <ul className="nav navbar-nav">
             <Button name="Get Partner" stateName="partner" handleClick={this.clickHandler} />

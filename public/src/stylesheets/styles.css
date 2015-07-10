@@ -1,7 +1,6 @@
 /*@import 'bootstrap';*/
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
 }
@@ -57,4 +56,8 @@ a {
 .col-centered{
     float: none;
     margin: 0 auto;
+}
+
+.modal-backdrop {
+  z-index: -1;
 }
