@@ -26,7 +26,6 @@ module.exports = function(passport){
     });
   })
 
-
   router.get('/auth/github', passport.authenticate('github'), function(req, res){});
 
   // GET /auth/github/callback
