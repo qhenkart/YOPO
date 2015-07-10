@@ -3,18 +3,45 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({
+  loadUserFromServer: function(){
+    $.ajax({
+      url: '/getUser',
+      dataType: 'json',
+      cache: false,
+      success: function(user){
+        this.setState({user: user});
+      }.bind(this),
+      error: function(xhr, status, err){
+        console.error('/getUser', status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleNavigationSelection: function(stateName){
+    var state = this.state;
+    state.partner = false;
+    state.profile = false;
+    state.home = false;
+    state[stateName] = true;
+    this.setState(state);
+  },
+  getInitialState: function(){
+    return {user: '', partners: '', partner: false, profile: false, home: true}
+  },
+  componentWillMount: function(){
+    this.loadUserFromServer();
+  },
   render:function(){
     return(
       <div>
-        <NavBar/>
-        <Box/>
+        <NavBar handleClickEvent={this.handleNavigationSelection}/>
+        <Box data={this.state}/>
         <Modal />
       </div>
     )
   }
 })
 
-
+// user={this.state.user} partners={this.state.partners}partner={this.state.partner} profile={this.state.profile} home={this.state.home}
 
 
 var Modal = React.createClass({
