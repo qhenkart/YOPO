@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://127.0.0.1:3000/#/profile -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Pair Matching</title>
+
+    <!-- Bootstrap -->
+    <script src="./Pair Matching_files/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="./Pair Matching_files/bootstrap.min.js"></script>
+    <script src="./Pair Matching_files/react.js"></script>
+    <script src="./Pair Matching_files/JSXTransformer.js"></script>
+    <script src="./Pair Matching_files/ReactRouter.min.js"></script>
+
+    <link rel="stylesheet" href="http://127.0.0.1:3000/src/stylesheets/styles.css">
+
+    
+  <script>var Router = window.ReactRouter
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
+
+
+
+
+
+var App = React.createClass({displayName: "App",
+  render: function(){
+    return(
+      React.createElement("div", null, 
+        React.createElement("h1", null, "App"), 
+        React.createElement(RouteHandler, null)
+      )
+    )
+  }
+});
+var Box = React.createClass({displayName: "Box",
+  loadUserFromServer: function(){
+    $.ajax({
+      url: '/getUser',
+      dataType: 'json',
+      cache: false,
+      success: function(user){
+        this.setState({user: user});
+          console.log(user)
+      }.bind(this),
+      error: function(xhr, status, err){
+        console.error('/getUser', status, err.toString());
+      }.bind(this)
+    });
+  },
+  getInitialState: function(){
+    return {user: ''};
+  },
+  componentWillMount: function(){
+    this.loadUserFromServer();
+  },
+  render:function(){
+    return(React.createElement("h1", null, this.state.user.name))
+  }
+});
+
+var Partner = React.createClass({displayName: "Partner",
+  render:function(){
+    return(React.createElement("p", null, "I am the partner"))
+  }
+})
+var Profile = React.createClass({displayName: "Profile",
+  render:function(){
+    return(React.createElement("div", null, React.createElement("p", null, "I am the partner"), 
+      React.createElement(RouteHandler, null))
+      )
+  }
+})
+var routes = (
+  React.createElement(Route, {handler: App}, 
+    React.createElement(Route, {path: "partner", handler: Partner}), 
+    React.createElement(Route, {path: "profile", handler: Profile})
+  )
+);
+
+Router.run(routes, function(Root){
+debugger;
+  React.render(React.createElement(Root, null), document.getElementById('content'))
+});
+
+
+// React.render(
+//   <Box />,
+//   document.getElementById('content')
+// )
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidHJhbnNmb3JtZWQuanMiLCJzb3VyY2VzIjpbInNyYy9qYXZhc2NyaXB0L2FwcC5qcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxJQUFJLE1BQU0sR0FBRyxNQUFNLENBQUMsV0FBVztBQUMvQixJQUFJLEtBQUssR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDO0FBQ3pCLElBQUksWUFBWSxHQUFHLE1BQU0sQ0FBQyxZQUFZLENBQUM7QUFDdkM7QUFDQTtBQUNBO0FBQ0E7O0FBRUEsSUFBSSx5QkFBeUIsbUJBQUE7RUFDM0IsTUFBTSxFQUFFLFVBQVU7SUFDaEI7TUFDRSxvQkFBQSxLQUFJLEVBQUEsSUFBQyxFQUFBO1FBQ0gsb0JBQUEsSUFBRyxFQUFBLElBQUMsRUFBQSxLQUFRLENBQUEsRUFBQTtRQUNaLG9CQUFDLFlBQVksRUFBQSxJQUFFLENBQUE7TUFDWCxDQUFBO0tBQ1A7R0FDRjtDQUNGLENBQUMsQ0FBQztBQUNILElBQUkseUJBQXlCLG1CQUFBO0VBQzNCLGtCQUFrQixFQUFFLFVBQVU7SUFDNUIsQ0FBQyxDQUFDLElBQUksQ0FBQztNQUNMLEdBQUcsRUFBRSxVQUFVO01BQ2YsUUFBUSxFQUFFLE1BQU07TUFDaEIsS0FBSyxFQUFFLEtBQUs7TUFDWixPQUFPLEVBQUUsU0FBUyxJQUFJLENBQUM7UUFDckIsSUFBSSxDQUFDLFFBQVEsQ0FBQyxDQUFDLElBQUksRUFBRSxJQUFJLENBQUMsQ0FBQyxDQUFDO1VBQzFCLE9BQU8sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDO09BQ3BCLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQztNQUNaLEtBQUssRUFBRSxTQUFTLEdBQUcsRUFBRSxNQUFNLEVBQUUsR0FBRyxDQUFDO1FBQy9CLE9BQU8sQ0FBQyxLQUFLLENBQUMsVUFBVSxFQUFFLE1BQU0sRUFBRSxHQUFHLENBQUMsUUFBUSxFQUFFLENBQUMsQ0FBQztPQUNuRCxDQUFDLElBQUksQ0FBQyxJQUFJLENBQUM7S0FDYixDQUFDLENBQUM7R0FDSjtFQUNELGVBQWUsRUFBRSxVQUFVO0lBQ3pCLE9BQU8sQ0FBQyxJQUFJLEVBQUUsRUFBRSxDQUFDLENBQUM7R0FDbkI7RUFDRCxrQkFBa0IsRUFBRSxVQUFVO0lBQzVCLElBQUksQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO0dBQzNCO0VBQ0QsTUFBTSxDQUFDLFVBQVU7SUFDZixPQUFPLG9CQUFBLElBQUcsRUFBQSxJQUFDLEVBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsSUFBVSxDQUFBLENBQUM7R0FDeEM7QUFDSCxDQUFDLENBQUMsQ0FBQzs7QUFFSCxJQUFJLDZCQUE2Qix1QkFBQTtFQUMvQixNQUFNLENBQUMsVUFBVTtJQUNmLE9BQU8sb0JBQUEsR0FBRSxFQUFBLElBQUMsRUFBQSxrQkFBb0IsQ0FBQSxDQUFDO0dBQ2hDO0NBQ0YsQ0FBQztBQUNGLElBQUksNkJBQTZCLHVCQUFBO0VBQy9CLE1BQU0sQ0FBQyxVQUFVO0lBQ2YsT0FBTyxvQkFBQSxLQUFJLEVBQUEsSUFBQyxFQUFBLG9CQUFBLEdBQUUsRUFBQSxJQUFDLEVBQUEsa0JBQW9CLENBQUEsRUFBQTtNQUNqQyxvQkFBQyxZQUFZLEVBQUEsSUFBRSxDQUFNLENBQUE7T0FDcEI7R0FDSjtDQUNGLENBQUM7QUFDRixJQUFJLE1BQU07RUFDUixvQkFBQyxLQUFLLEVBQUEsQ0FBQSxDQUFDLE9BQUEsRUFBTyxDQUFFLEdBQUssQ0FBQSxFQUFBO0lBQ25CLG9CQUFDLEtBQUssRUFBQSxDQUFBLENBQUMsSUFBQSxFQUFJLENBQUMsU0FBQSxFQUFTLENBQUMsT0FBQSxFQUFPLENBQUUsT0FBUSxDQUFFLENBQUEsRUFBQTtJQUN6QyxvQkFBQyxLQUFLLEVBQUEsQ0FBQSxDQUFDLElBQUEsRUFBSSxDQUFDLFNBQUEsRUFBUyxDQUFDLE9BQUEsRUFBTyxDQUFFLE9BQVEsQ0FBRSxDQUFBO0VBQ25DLENBQUE7QUFDVixDQUFDLENBQUM7O0FBRUYsTUFBTSxDQUFDLEdBQUcsQ0FBQyxNQUFNLEVBQUUsU0FBUyxJQUFJLENBQUM7QUFDakMsU0FBUztFQUNQLEtBQUssQ0FBQyxNQUFNLENBQUMsb0JBQUMsSUFBSSxFQUFBLElBQUUsQ0FBQSxFQUFFLFFBQVEsQ0FBQyxjQUFjLENBQUMsU0FBUyxDQUFDLENBQUM7QUFDM0QsQ0FBQyxDQUFDLENBQUM7QUFDSDs7QUFFQSxnQkFBZ0I7QUFDaEIsYUFBYTtBQUNiLHVDQUF1QztBQUN2QyIsInNvdXJjZXNDb250ZW50IjpbInZhciBSb3V0ZXIgPSB3aW5kb3cuUmVhY3RSb3V0ZXJcbnZhciBSb3V0ZSA9IFJvdXRlci5Sb3V0ZTtcbnZhciBSb3V0ZUhhbmRsZXIgPSBSb3V0ZXIuUm91dGVIYW5kbGVyO1xuXG5cblxuXG5cbnZhciBBcHAgPSBSZWFjdC5jcmVhdGVDbGFzcyh7XG4gIHJlbmRlcjogZnVuY3Rpb24oKXtcbiAgICByZXR1cm4oXG4gICAgICA8ZGl2PlxuICAgICAgICA8aDE+QXBwPC9oMT5cbiAgICAgICAgPFJvdXRlSGFuZGxlci8+XG4gICAgICA8L2Rpdj5cbiAgICApXG4gIH1cbn0pO1xudmFyIEJveCA9IFJlYWN0LmNyZWF0ZUNsYXNzKHtcbiAgbG9hZFVzZXJGcm9tU2VydmVyOiBmdW5jdGlvbigpe1xuICAgICQuYWpheCh7XG4gICAgICB1cmw6ICcvZ2V0VXNlcicsXG4gICAgICBkYXRhVHlwZTogJ2pzb24nLFxuICAgICAgY2FjaGU6IGZhbHNlLFxuICAgICAgc3VjY2VzczogZnVuY3Rpb24odXNlcil7XG4gICAgICAgIHRoaXMuc2V0U3RhdGUoe3VzZXI6IHVzZXJ9KTtcbiAgICAgICAgICBjb25zb2xlLmxvZyh1c2VyKVxuICAgICAgfS5iaW5kKHRoaXMpLFxuICAgICAgZXJyb3I6IGZ1bmN0aW9uKHhociwgc3RhdHVzLCBlcnIpe1xuICAgICAgICBjb25zb2xlLmVycm9yKCcvZ2V0VXNlcicsIHN0YXR1cywgZXJyLnRvU3RyaW5nKCkpO1xuICAgICAgfS5iaW5kKHRoaXMpXG4gICAgfSk7XG4gIH0sXG4gIGdldEluaXRpYWxTdGF0ZTogZnVuY3Rpb24oKXtcbiAgICByZXR1cm4ge3VzZXI6ICcnfTtcbiAgfSxcbiAgY29tcG9uZW50V2lsbE1vdW50OiBmdW5jdGlvbigpe1xuICAgIHRoaXMubG9hZFVzZXJGcm9tU2VydmVyKCk7XG4gIH0sXG4gIHJlbmRlcjpmdW5jdGlvbigpe1xuICAgIHJldHVybig8aDE+e3RoaXMuc3RhdGUudXNlci5uYW1lfTwvaDE+KVxuICB9XG59KTtcblxudmFyIFBhcnRuZXIgPSBSZWFjdC5jcmVhdGVDbGFzcyh7XG4gIHJlbmRlcjpmdW5jdGlvbigpe1xuICAgIHJldHVybig8cD5JIGFtIHRoZSBwYXJ0bmVyPC9wPilcbiAgfVxufSlcbnZhciBQcm9maWxlID0gUmVhY3QuY3JlYXRlQ2xhc3Moe1xuICByZW5kZXI6ZnVuY3Rpb24oKXtcbiAgICByZXR1cm4oPGRpdj48cD5JIGFtIHRoZSBwYXJ0bmVyPC9wPlxuICAgICAgPFJvdXRlSGFuZGxlci8+PC9kaXY+XG4gICAgICApXG4gIH1cbn0pXG52YXIgcm91dGVzID0gKFxuICA8Um91dGUgaGFuZGxlcj17QXBwfT5cbiAgICA8Um91dGUgcGF0aD1cInBhcnRuZXJcIiBoYW5kbGVyPXtQYXJ0bmVyfS8+XG4gICAgPFJvdXRlIHBhdGg9XCJwcm9maWxlXCIgaGFuZGxlcj17UHJvZmlsZX0vPlxuICA8L1JvdXRlPlxuKTtcblxuUm91dGVyLnJ1bihyb3V0ZXMsIGZ1bmN0aW9uKFJvb3Qpe1xuZGVidWdnZXI7XG4gIFJlYWN0LnJlbmRlcig8Um9vdC8+LCBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnY29udGVudCcpKVxufSk7XG5cblxuLy8gUmVhY3QucmVuZGVyKFxuLy8gICA8Qm94IC8+LFxuLy8gICBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnY29udGVudCcpXG4vLyApIl19</script></head>
+  <body class="pairImage">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="http://127.0.0.1:3000/#">YOPO</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="http://127.0.0.1:3000/getPartner" class="getpartner">Get Partner</a></li>
+          <li><a href="./Pair Matching_files/Pair Matching.html" class="editprofile">Edit Profile</a></li>
+        </ul>
+          <ul class="nav navbar-nav navbar-right">
+          <li><a data-toggle="modal" data-target="#myModal">About</a></li>
+          <li><a href="http://127.0.0.1:3000/logout">Logout</a></li>
+      </ul></div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-centered">
+          <div class="jumbotron" id="container">
+            <section id="content"><div data-reactid=".0"><h1 data-reactid=".0.0">App</h1><div data-reactid=".0.1"><p data-reactid=".0.1.0">I am the partner</p><script data-reactid=".0.1.1"></script></div></div></section>  
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">YOPO: You Only Pair Once</h4>
+          </div>
+          <div class="modal-body">
+            <p>Welcome to the YOPO App: A new <strong>PAIR</strong>adigm in Pair Programming</p>
+
+            <p>YOPO is set to solve the very real problem of matching during Pair Progamming exercises. This application allows people to set preferences of people they want to pair or not to pair with, or just choose anyone randomly. </p>
+
+            <p>The goal of this program is to make sure that no one gets left behind, that everyone has a partner, and that there is no inhibited productivity due to feelings of exclusion, being picked last, or feelings of alienation from the community.</p>
+
+            <p>Choose your top two choices, and if any of your choices match with theirs, then you will be automatically matched. Choose your two exclusions, and as long as there are other options in the pairing pool, you will not be matched. For those who don't care, or prefer to partner with the most diverse selection of talent and personality, the app will match you with a totally random partner with the exception of those you've already paired with!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/jsx" src="./Pair Matching_files/app.js"></script>   
+  
+</body><div></div></html>
