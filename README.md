@@ -1,4 +1,5 @@
-# Pairing-Picker
+# YOPO
+####A new PAIRadigm in pair programming
 A simple program that automates pair programming matches. 
 Originally built with MongoDB, Express/Node.js, and jQuery/handlebars
 
